@@ -1,15 +1,15 @@
 import {
   Controller,
+  Res,
   Get,
   Post,
   Delete,
-  HttpCode,
   Param,
   Body,
   UsePipes,
   ValidationPipe,
+  HttpStatus,
 } from '@nestjs/common';
-import { IApartment } from './apartment.interface';
 import { ApartmentService } from './apartment.service';
 import { CreateApartmentDto } from './dto/create-apartment.dto';
 
@@ -28,30 +28,64 @@ export class ApartmentController {
   // на неё навесить доп.функционал)
 
   @Get()
-  @HttpCode(200)
-  getApartmentsArray(): IApartment[] {
-    return this.apartmentService.getApartmentsArray();
+  async getApartmentsArray(@Res() response) {
+    try {
+      const apartmentsArray = await this.apartmentService.getApartmentsArray();
+      return response.status(HttpStatus.OK).json({
+        message: 'Apartments array found successfully',
+        apartmentsArray,
+      });
+    } catch (err) {
+      return response.status(err.status).json(err.response);
+    }
   }
 
   @Get(':id')
-  @HttpCode(200)
-  getApartmentById(@Param('id') id: string): IApartment {
-    return this.apartmentService.getApartmentById(id);
+  async getApartmentById(@Res() response, @Param('id') id: string) {
+    try {
+      const existingApartment =
+        await this.apartmentService.getApartmentById(id);
+      return response.status(HttpStatus.OK).json({
+        message: 'Apartment found successfully',
+        existingApartment,
+      });
+    } catch (err) {
+      return response.status(err.status).json(err.response);
+    }
   }
 
   @UsePipes(new ValidationPipe())
   @Post()
-  @HttpCode(200)
   // @Body('apartment') — декоратор, который извлекает данные из тела запроса.
   // В данном случае из тела запроса извлекается объект под ключом 'apartment'.
-  creatApartment(@Body('apartment') apartment: CreateApartmentDto): IApartment {
-    return this.apartmentService.creatApartment(apartment);
+  async creatApartment(
+    @Res() response,
+    @Body('apartment') createApartmentDto: CreateApartmentDto,
+  ) {
+    try {
+      const newApartment =
+        await this.apartmentService.creatApartment(createApartmentDto);
+      return response.status(HttpStatus.CREATED).json({
+        message: 'Apartment has been created successfully',
+        newApartment,
+      });
+    } catch (err) {
+      return response.status(err.status).json(err.response);
+    }
   }
 
   @Delete(':id')
-  @HttpCode(200)
-  deleteApartmentById(@Param('id') id: string): IApartment {
-    return this.apartmentService.deleteApartmentById(id);
+  async deleteApartmentById(@Res() response, @Param('id') id: string) {
+    try {
+      const deletedApartment =
+        await this.apartmentService.deleteApartmentById(id);
+      return response.status(HttpStatus.OK).json({
+        message: 'Apartment deleted successfully',
+        deletedApartment,
+      });
+    } catch (err) {
+      return response.status(err.status).json(err.response);
+    }
   }
 }
 

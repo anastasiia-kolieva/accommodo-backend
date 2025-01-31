@@ -1,8 +1,8 @@
-###Accommodo – Hotel Management System (Back-End)
+### Accommodo – Hotel Management System (Back-End)
 
-##Accommodo is a microservices-based hotel management system built with Nest.js, MongoDB, Python, and Docker. The system is designed to efficiently handle room management, bookings, payments, and customer data while ensuring security and scalability.
+## Accommodo is a microservices-based hotel management system built with Nest.js, MongoDB, Python, and Docker. The system is designed to efficiently handle room management, bookings, payments, and customer data while ensuring security and scalability.
 
-##🛠 Tech Stack
+## 🛠 Tech Stack
 
 - Nest.js – Backend framework for building scalable and maintainable APIs
 - MongoDB – NoSQL database for storing room, booking, and customer information
@@ -28,5 +28,6 @@
 <!-- ##🚀 Deployment
 Accommodo is containerized using Docker and can be deployed using Kubernetes for scalable infrastructure management. -->
 
-##📜 API Documentation
+## 📜 API Documentation
+
 Swagger API documentation is available for seamless integration and testing.
