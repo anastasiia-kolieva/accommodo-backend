@@ -7,4 +7,6 @@ export class Customer implements ICustomer {
   telephone: string;
   address: string;
   passport: string;
+  createdAt: Date = new Date();
+  updatedAt: Date = new Date();
 }

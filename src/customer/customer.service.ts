@@ -1,9 +1,11 @@
 import { Injectable } from '@nestjs/common';
+import { v4 as uuidv4 } from 'uuid';
 import { ICustomer } from './customer.interface';
+import { CreateCustomerDto } from './dto/create-customer.dto';
 
 @Injectable()
 export class CustomerService {
-  private customers: ICustomer[] = [
+  private readonly customers: ICustomer[] = [
     {
       id: '1',
       firstName: 'John',
@@ -11,6 +13,8 @@ export class CustomerService {
       telephone: '012345678',
       address: 'New-York',
       passport: 'KM1234',
+      createdAt: new Date('2025-01-10T10:30:00Z'),
+      updatedAt: new Date('2025-01-10T10:30:00Z'),
     },
     {
       id: '2',
@@ -19,6 +23,8 @@ export class CustomerService {
       telephone: '98765432',
       address: 'London',
       passport: 'OT4567',
+      createdAt: new Date('2025-01-10T10:30:00Z'),
+      updatedAt: new Date('2025-01-10T10:30:00Z'),
     },
   ];
 
@@ -30,9 +36,15 @@ export class CustomerService {
     return this.customers.find((custom) => custom.id === id);
   }
 
-  creatCustomer(customer: ICustomer): ICustomer {
-    this.customers.push(customer);
-    return customer;
+  creatCustomer(customer: CreateCustomerDto): ICustomer {
+    const newCustomer: ICustomer = {
+      id: uuidv4(),
+      ...customer,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+    this.customers.push(newCustomer);
+    return newCustomer;
   }
 
   deleteCustomerById(id: string): ICustomer {

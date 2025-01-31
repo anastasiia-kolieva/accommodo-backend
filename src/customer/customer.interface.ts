@@ -5,4 +5,6 @@ export interface ICustomer {
   telephone: string;
   address: string;
   passport: string;
+  createdAt: Date;
+  updatedAt: Date;
 }

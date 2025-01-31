@@ -1,10 +1,11 @@
 import { IsEnum, IsInt, IsNotEmpty, IsString, Min } from 'class-validator';
 import { TypeApart, Status, Currency } from '../apartment.interface';
 
-// DTO не до конца поняла! Нужно разобрать этот момент. Зачем и как делать.
+// DTO (Data Transfer Obgect) -это CreateApartmentDto
+// С помощью него мы можем контролировать всё что "пролетает" (все данные
 
 // затянула пакеты для валиданции npm i --save class-validator class-transformer
-// чтобы навешивать необходимые для проверки декораторы на DTO
+// чтобы навешивать необходимые для проверки декораторы (@Min,...) на DTO
 export class CreateApartmentDto {
   @IsString({ message: 'Apartment number must be a string!' })
   @IsNotEmpty({ message: 'Apartment number can not be empty string!' })
