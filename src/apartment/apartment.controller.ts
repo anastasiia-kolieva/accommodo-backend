@@ -77,11 +77,9 @@ export class ApartmentController {
   @Delete(':id')
   async deleteApartmentById(@Res() response, @Param('id') id: string) {
     try {
-      const deletedApartment =
-        await this.apartmentService.deleteApartmentById(id);
+      await this.apartmentService.deleteApartmentById(id);
       return response.status(HttpStatus.OK).json({
         message: 'Apartment deleted successfully',
-        deletedApartment,
       });
     } catch (err) {
       return response.status(err.status).json(err.response);
